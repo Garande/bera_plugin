@@ -1,16 +1,5 @@
 import 'dart:io';
 
-// import 'package:bera_app/blocs/chat/chat_cubit.dart';
-// import 'package:bera_app/blocs/payments/payments_bloc.dart';
-// import 'package:bera_app/models/app_user.dart';
-// import 'package:bera_app/models/doctor.dart';
-// import 'package:bera_app/models/message.dart';
-// import 'package:bera_app/utils/config.dart';
-// import 'package:bera_app/utils/helpers.dart';
-// import 'package:bera_app/views/payments/subscription_screen.dart';
-// import 'package:bera_app/widgets/audio/audio_record.dart';
-// import 'package:bera_app/widgets/file_bottom_modal.dart';
-// import 'package:bera_app/widgets/image_builder.dart';
 import 'package:file_picker/file_picker.dart' as pk;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

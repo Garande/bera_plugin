@@ -113,6 +113,16 @@ class _BeraLoaderState extends State<BeraLoader> {
     );
   }
 
+  void handleDoctorCheck() {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      builder: (context) {
+        return Container();
+      },
+    );
+  }
+
   SizedBox _buildQuickTools() {
     return SizedBox(
       child: GridView(

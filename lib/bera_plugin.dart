@@ -16,6 +16,8 @@ class BeraPlugin {
 
   bool? busy;
 
+  String? get authKey => apiKey;
+
   ///initialize the plugin with your public key
   void initialize(String key, {String? secret, String? userId}) {
     apiKey = key;
