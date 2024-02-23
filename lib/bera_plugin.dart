@@ -39,6 +39,7 @@ class BeraPlugin {
                 topRight: Radius.circular(20),
               ),
             ),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,10 +51,13 @@ class BeraPlugin {
                     color: Colors.amber,
                     borderRadius: BorderRadius.circular(120),
                   ),
-                  child: const Icon(
-                    Icons.warning_amber_rounded,
-                    size: 100,
-                    color: Colors.white,
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Center(
+                    child: Icon(
+                      Icons.warning_amber_rounded,
+                      size: 90,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
