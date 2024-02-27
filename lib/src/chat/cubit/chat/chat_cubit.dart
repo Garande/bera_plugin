@@ -74,6 +74,8 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> initChat(var peerId, var userId, String apiKey) async {
     emit(state.copyWith(peerId: peerId));
     AppUser? peer = await fetchUserById(peerId, apiKey);
+
+    printLog('USE ---- $userId');
     // AppUser? user = await _authProvider.getCurrentUser();
     emit(state.copyWith(peer: peer));
 
@@ -121,11 +123,10 @@ class ChatCubit extends Cubit<ChatState> {
     String? text,
     File? file,
     int? type,
-    var userId,
   }) async {
     // printLog('Sending message');
     int? id = state.peerId;
-    String chatId = await generateChatId(id, userId);
+    String chatId = await generateChatId(id, state.myId);
 
     // int? userId = PrefsUtil.getInt(PrefsKey.userId, -1);
 
@@ -138,7 +139,7 @@ class ChatCubit extends Cubit<ChatState> {
       sender: state.user?.firstName,
       receiver: state.peer?.firstName,
       status: 'SENT',
-      userId: userId,
+      userId: state.myId,
       receiverId: state.peerId,
       id: timestamp,
       type: type ?? MessageType.TEXT,

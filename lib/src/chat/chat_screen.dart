@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bera_plugin/bera_plugin.dart';
 import 'package:file_picker/file_picker.dart' as pk;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +42,8 @@ class _ChatScreenState extends State<ChatScreen> {
       create: (_) => ChatCubit()
         ..initChat(
           widget.peerId,
-          widget.userId,
-          widget.apiKey,
+          BeraPlugin.instance.userId,
+          BeraPlugin.instance.apiKey!,
         ),
       child: Builder(
         builder: (context) {
