@@ -1,8 +1,10 @@
+import 'package:bera_plugin/src/common/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'src/chat/all_chats_screen.dart';
 import 'src/common/app_palette.dart';
+import 'src/doctors/doctors_screen.dart';
 import 'src/tips/health_tips_screen.dart';
 import 'src/widgets/image_builder.dart';
 import 'src/widgets/quick_access_card.dart';
@@ -118,7 +120,21 @@ class _BeraLoaderState extends State<BeraLoader> {
       context: context,
       isDismissible: true,
       builder: (context) {
-        return Container();
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [],
+          ),
+        );
       },
     );
   }
@@ -139,12 +155,15 @@ class _BeraLoaderState extends State<BeraLoader> {
           QuickAccessCard(
             onTap: () {
               // BlocProvider.of<PaymentsBloc>(context).add(IsSubscribed());
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => const DoctorsScreen(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DoctorsScreen(
+                    apiKey: widget.apiKey,
+                    userId: widget.userId,
+                  ),
+                ),
+              );
             },
             title: "Chat with Doctor",
             gradientStartColor: const Color(0xff13DEA0),
@@ -156,44 +175,13 @@ class _BeraLoaderState extends State<BeraLoader> {
               color: Colors.white,
             ),
           ),
-          // QuickAccessCard(
-          //   onTap: () {
-          //     // Navigator.push(
-          //     //   context,
-          //     //   MaterialPageRoute(
-          //     //     builder: (_) => const AmbulanceRequestScreen(),
-          //     //   ),
-          //     // );
-          //   },
-          //   title: "Ambulances",
-          //   color: AppPalette.black,
-          //   icon: SvgPicture.asset(
-          //     'assets/images/icons/ambulance.svg',
-          //     height: 36.0,
-          //     width: 36.0,
-          //     color: Colors.white,
-          //   ),
-          // ),
-          // QuickAccessCard(
-          //   onTap: () {
-          //     Helpers.showSnackBar(context, 'Comming soon', Colors.blue);
-          //   },
-          //   title: "Weight Tracker",
-          //   gradientStartColor: const Color(0xffFFD541),
-          //   gradientEndColor: const Color(0xffF0B31A),
-          //   icon: SvgPicture.asset(
-          //     'assets/images/icons/chart.svg',
-          //     height: 34.0,
-          //     width: 34.0,
-          //     color: Colors.white,
-          //   ),
-          // ),
           QuickAccessCard(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (_) => const AppointmentsScreen()));
+              Helpers.showSnackBar(
+                context,
+                'Under construction. Comming soon',
+                Colors.blue,
+              );
             },
             title: "My Prescriptions",
             color: AppPalette.instaBlue,

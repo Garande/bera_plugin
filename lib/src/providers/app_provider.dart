@@ -1,6 +1,7 @@
 import 'package:bera_plugin/bera_plugin.dart';
 import 'package:bera_plugin/src/common/api_helper.dart';
 import 'package:bera_plugin/src/models/doctor.dart';
+import 'package:bera_plugin/src/models/health_category.dart';
 
 class AppProvider {
   // List of available doctors
@@ -25,5 +26,14 @@ class AppProvider {
       (value) =>
           List.from(value['data']).map((e) => Doctor.fromMap(e)).toList(),
     );
+  }
+
+  Future<List<HealthCategory>> fetchCategories() {
+    return ApiHelper.fetchData(
+      url: '${ApiHelper.baseURL}/categories',
+      apiKey: BeraPlugin.instance.authKey!,
+    ).then((value) => List.from(value['data'])
+        .map((e) => HealthCategory.fromJson(e))
+        .toList());
   }
 }

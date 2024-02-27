@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/chat.dart';
@@ -27,7 +28,11 @@ class AllChatsCubit extends Cubit<AllChatsState> {
 
     // printLog(userId);
 
-    FirebaseFirestore.instance
+    FirebaseApp beraApp = Firebase.app('bera');
+
+    var firebaseFirestore = FirebaseFirestore.instanceFor(app: beraApp);
+
+    firebaseFirestore
         .collection('/MAIN/CHAT/CHAT_PARAMS')
         .where('memberIds', arrayContains: userId)
         .snapshots()

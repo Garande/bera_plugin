@@ -1,5 +1,6 @@
 library bera_plugin;
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'bera_loader.dart';
@@ -19,10 +20,22 @@ class BeraPlugin {
   String? get authKey => apiKey;
 
   ///initialize the plugin with your public key
-  void initialize(String key, {String? secret, String? userId}) {
+  Future<void> initialize(String key, {String? secret, String? userId}) async {
     apiKey = key;
     secretKey = secret;
     userId = userId;
+
+    await Firebase.initializeApp(
+      name: 'bera', // Give your second app a custom name
+      options: const FirebaseOptions(
+        apiKey: 'AIzaSyCFp_7TSLXlDuqQFapfnjm6ug_9aVhc3gg',
+        appId: '1:423955285530:android:c7a3bb05167bd9f739b3a3',
+        messagingSenderId: '423955285530',
+        projectId: 'bera-care',
+        databaseURL: 'https://bera-care-default-rtdb.firebaseio.com',
+        storageBucket: 'bera-care.appspot.com',
+      ),
+    );
   }
 
   bool get isInitialized => apiKey != null;

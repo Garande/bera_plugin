@@ -11,6 +11,7 @@ import 'dart:io';
 // import 'package:bera_app/utils/log.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -35,14 +36,18 @@ class ChatCubit extends Cubit<ChatState> {
   final StreamController<List<Message>> _messagesController =
       StreamController.broadcast();
 
-  final firebase_storage.FirebaseStorage firebaseStorage =
-      firebase_storage.FirebaseStorage.instance;
-
   Stream<List<Message>> getMessagesStream() => _messagesController.stream;
 
   Future<void> initSocket() async {}
 
+  // FirebaseApp otherFirebase = Firebase.app('secondFirebaseName');
+
   Future<String> uploadImage(File file, String storagePath) async {
+    FirebaseApp beraApp = Firebase.app('bera');
+
+    final firebase_storage.FirebaseStorage firebaseStorage =
+        firebase_storage.FirebaseStorage.instanceFor(app: beraApp);
+    // firebase_storage.FirebaseStorage.instance;
     firebase_storage.Reference reference = firebaseStorage
         .ref()
         .child('$storagePath/FILE-${DateTime.now().millisecondsSinceEpoch}');
@@ -79,7 +84,11 @@ class ChatCubit extends Cubit<ChatState> {
 
     String chatId = await generateChatId(peerId, userId);
 
-    FirebaseDatabase.instance.ref('/CHATS/$chatId').onValue.listen((event) {
+    FirebaseApp beraApp = Firebase.app('bera');
+
+    var firebaseDatabase = FirebaseDatabase.instanceFor(app: beraApp);
+
+    firebaseDatabase.ref('/CHATS/$chatId').onValue.listen((event) {
       var json = event.snapshot.children;
       // ignore: unnecessary_null_comparison
       if (json != null) {
@@ -142,15 +151,18 @@ class ChatCubit extends Cubit<ChatState> {
       message.type = type ?? MessageType.IMAGE;
     }
 
-    FirebaseDatabase.instance
+    FirebaseApp beraApp = Firebase.app('bera');
+
+    var firebaseDatabase = FirebaseDatabase.instanceFor(app: beraApp);
+
+    var firebaseFirestore = FirebaseFirestore.instanceFor(app: beraApp);
+
+    firebaseDatabase
         .ref('/CHATS/$chatId')
         .child(message.id.toString())
         .set(message.toJson());
 
-    FirebaseFirestore.instance
-        .collection('/MAIN/CHAT/CHAT_PARAMS')
-        .doc(chatId)
-        .set(
+    firebaseFirestore.collection('/MAIN/CHAT/CHAT_PARAMS').doc(chatId).set(
           toChat(message, state.user, state.peer),
           SetOptions(merge: true),
         );

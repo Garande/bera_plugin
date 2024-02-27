@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'app_user.dart';
 import 'department.dart';
 import 'health_category.dart';
 
@@ -12,6 +13,8 @@ class Doctor {
   final Department? department;
   final HealthCategory? category;
 
+  final AppUser? user;
+
   Doctor({
     this.id,
     this.categoryId,
@@ -21,6 +24,7 @@ class Doctor {
     this.isValid,
     this.departmentId,
     this.category,
+    this.user,
   });
 
   factory Doctor.fromMap(var data) {
@@ -38,7 +42,7 @@ class Doctor {
       department: data['department'] != null
           ? Department.fromMap(data['department'])
           : null,
-      // user: data['user'] != null ? AppUser.fromMap(data['user']) : null,
+      user: data['user'] != null ? AppUser.fromMap(data['user']) : null,
     );
   }
 
@@ -50,6 +54,7 @@ class Doctor {
       'category': category?.toMap(),
       'experience': experience,
       'user_id': userId,
+      'user': user?.toMap(),
     };
   }
 
