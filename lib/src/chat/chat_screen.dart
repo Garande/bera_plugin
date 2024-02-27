@@ -49,15 +49,15 @@ class _ChatScreenState extends State<ChatScreen> {
           return Scaffold(
             body: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    image: const DecorationImage(
-                        image: AssetImage(
-                            "assets/images/backgrounds/background.png"),
-                        fit: BoxFit.cover),
-                  ),
-                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Theme.of(context).primaryColor,
+                //     image: const DecorationImage(
+                //         image: AssetImage(
+                //             "assets/images/backgrounds/background.png"),
+                //         fit: BoxFit.cover),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   child: Column(
@@ -722,7 +722,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               clipBehavior: Clip.hardEdge,
               child: ImageBuilder.network(
-                peer?.imageUrl ?? '',
+                peer?.imageUrl ?? widget.doctor?.user?.imageUrl ?? '',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Center(
@@ -744,13 +744,13 @@ class _ChatScreenState extends State<ChatScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${peer?.firstName} ${peer?.lastName}',
+                  '${peer?.firstName ?? widget.doctor?.user?.firstName ?? ''} ${peer?.lastName ?? widget.doctor?.user?.lastName ?? ''}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(),
                 ),
                 Text(
-                  widget.doctor?.department?.name ?? 'MD. Internal Medicine',
+                  widget.doctor?.department?.name ?? '---',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
